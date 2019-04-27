@@ -1,7 +1,9 @@
 package br.com.neto.reserva.service;
 
 import java.time.Duration;
+import java.util.Optional;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +25,14 @@ public class ReservaService {
             return this.reservaRepository.save(reserva);
         }
         throw new ReservaInconsistenteException();
+    }
 
+    public Reserva atualizar(Long codigo,Reserva reserva) {
+        Reserva reservaSalvo = this.buscarReservaExistente(codigo);
+        this.validaReservaIntervaloHorarioInconsistente(reservaSalvo);
+
+        BeanUtils.copyProperties(reserva, reservaSalvo, "codigo");
+        return this.reservaRepository.save(reservaSalvo);
     }
 
     private void validaReservaIntervaloHorarioInconsistente(Reserva reserva) {
@@ -31,6 +40,14 @@ public class ReservaService {
         if (duration.isZero() || duration.isNegative()) {
             throw new ReservaInconsistenteException();
         }
+    }
+
+    private Reserva buscarReservaExistente(Long codigo) {
+        Optional<Reserva> lancamentoSalvo = this.reservaRepository.findById(codigo);
+        if (!lancamentoSalvo.isPresent()) {
+            throw new IllegalArgumentException();
+        }
+        return lancamentoSalvo.get();
     }
 
 

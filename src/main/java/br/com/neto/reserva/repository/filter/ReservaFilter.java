@@ -6,10 +6,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 public class ReservaFilter {
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd kk:mm")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDate dataInicial;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd kk:mm")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDate dataFinal;
 
     public LocalDate getDataInicial() {
