@@ -46,7 +46,7 @@ public class ReservaResource {
         return this.reservaRepository.findAll();
     }
 
-    @GetMapping("listarPaginada")
+    @GetMapping(params = "listarPaginada")
     public Page<Reserva> listarPaginada(ReservaFilter reservaFilter, Pageable pageable) {
         return this.reservaRepository.filtrar(reservaFilter, pageable);
     }
