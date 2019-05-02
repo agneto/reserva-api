@@ -24,7 +24,7 @@ public class ReservaService {
         if (reservaJaCadastrada == null) {
             return this.reservaRepository.save(reserva);
         }
-        throw new ReservaInconsistenteException();
+        throw new ReservaInconsistenteException("Você está tentando inserir uma reserva já agendada!");
     }
 
     public Reserva atualizar(Long codigo,Reserva reserva) {
@@ -38,7 +38,7 @@ public class ReservaService {
     private void validaReservaIntervaloHorarioInconsistente(Reserva reserva) {
         Duration duration = Duration.between(reserva.getInicio(), reserva.getFim());
         if (duration.isZero() || duration.isNegative()) {
-            throw new ReservaInconsistenteException();
+            throw new ReservaInconsistenteException("A data inicial tem de ser menor que a data final");
         }
     }
 
