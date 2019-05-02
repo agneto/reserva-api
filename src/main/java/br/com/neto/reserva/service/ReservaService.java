@@ -31,7 +31,7 @@ public class ReservaService {
         Reserva reservaSalvo = this.buscarReservaExistente(codigo);
         this.validaReservaIntervaloHorarioInconsistente(reservaSalvo);
 
-        BeanUtils.copyProperties(reserva, reservaSalvo, "codigo");
+        BeanUtils.copyProperties(reserva, reservaSalvo, "id");
         return this.reservaRepository.save(reservaSalvo);
     }
 
