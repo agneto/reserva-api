@@ -15,7 +15,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.NotNull;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+// import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Table(name = "reserva")
@@ -39,11 +39,11 @@ public class Reserva implements Serializable {
 
     @NotNull
     @FutureOrPresent
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
+    // @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime inicio;
 
     @NotNull
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
+    // @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime fim;
 
     @Column(name="responsavel", columnDefinition="VARCHAR(300)")

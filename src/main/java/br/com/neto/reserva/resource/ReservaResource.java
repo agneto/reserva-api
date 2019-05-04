@@ -1,6 +1,7 @@
 package br.com.neto.reserva.resource;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -49,6 +50,12 @@ public class ReservaResource {
     @GetMapping(params = "listarPaginada")
     public Page<Reserva> listarPaginada(ReservaFilter reservaFilter, Pageable pageable) {
         return this.reservaRepository.filtrar(reservaFilter, pageable);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Reserva> buscarPeloCodigo(@PathVariable Long id) {
+        Optional<Reserva> reserva = this.reservaRepository.findById(id);
+        return reserva.isPresent() ? ResponseEntity.ok(reserva.get()) : ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/{codigo}")
