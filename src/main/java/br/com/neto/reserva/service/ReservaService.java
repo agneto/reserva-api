@@ -22,9 +22,15 @@ public class ReservaService {
         this.validaReservaIntervaloHorarioInconsistente(reserva);
         Reserva reservaJaCadastrada = this.reservaRepository.buscarReservaPorHorarioSalaLocal(reserva);
         if (reservaJaCadastrada == null) {
+            this.ajustarHoraBrasilVindoDoFrontEnd(reserva);
             return this.reservaRepository.save(reserva);
         }
         throw new ReservaInconsistenteException("Você está tentando inserir uma reserva já agendada!");
+    }
+
+    private void ajustarHoraBrasilVindoDoFrontEnd(Reserva reserva) {
+        reserva.setInicio(reserva.getInicio().minusHours(3L));
+        reserva.setFim(reserva.getFim().minusHours(3L));
     }
 
     public Reserva atualizar(Long codigo,Reserva reserva) {
